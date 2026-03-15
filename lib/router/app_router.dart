@@ -2,24 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import '../providers/auth_provider.dart';
-
-// Helper class to convert a Stream into a Listenable for GoRouter
-class GoRouterRefreshStream extends ChangeNotifier {
-  GoRouterRefreshStream(Stream<dynamic> stream) {
-    notifyListeners();
-    _subscription = stream.asBroadcastStream().listen((_) => notifyListeners());
-  }
-
-  late final StreamSubscription<dynamic> _subscription;
-
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
-}
 import '../screens/splash_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/product_listing_screen.dart';
@@ -38,6 +22,22 @@ import '../screens/store_details_screen.dart';
 import '../screens/admin_dashboard_screen.dart';
 import '../screens/manage_stores_screen.dart';
 import '../screens/manage_products_screen.dart';
+
+// Helper class to convert a Stream into a Listenable for GoRouter
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen((_) => notifyListeners());
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
