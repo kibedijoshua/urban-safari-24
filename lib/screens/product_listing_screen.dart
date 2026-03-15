@@ -19,6 +19,7 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
   int _selectedCategory = 0;
   final List<String> _categories = ['All', 'clothing', 'shoes', 'caps', 'jerseys', 'boots', 'gadgets'];
   String _searchQuery = '';
+  String _selectedSort = 'Newest'; // 'Newest', 'Price: Low to High', 'Price: High to Low'
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
     final allProducts = allProductsData.map((p) => Product.fromMap(p, p['id'] as String)).toList();
 
     // Filter by category and search
-    final filtered = allProducts.where((p) {
+    var filtered = allProducts.where((p) {
       final matchesSearch = _searchQuery.isEmpty ||
           p.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
           p.brand.toLowerCase().contains(_searchQuery.toLowerCase());
@@ -39,6 +40,21 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
           
       return matchesSearch && matchesCategory;
     }).toList();
+
+    // Sorting logic
+    print('DEBUG: Sorting ${filtered.length} products by $_selectedSort');
+    if (_selectedSort == 'Newest') {
+      filtered.sort((a, b) {
+        final aTime = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+        final bTime = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+        return bTime.compareTo(aTime);
+      });
+    } else if (_selectedSort == 'Price: Low to High') {
+      filtered.sort((a, b) => a.price.compareTo(b.price));
+    } else if (_selectedSort == 'Price: High to Low') {
+      filtered.sort((a, b) => b.price.compareTo(a.price));
+    }
+    print('DEBUG: Top item after sort: ${filtered.isNotEmpty ? filtered[0].name : 'none'} - Price: ${filtered.isNotEmpty ? filtered[0].price : 'n/a'}');
 
     return Scaffold(
       backgroundColor: AppColors.backgroundDark,
@@ -134,10 +150,32 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
                 sliver: SliverToBoxAdapter(
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Text('Showing ${filtered.length} items', style: const TextStyle(color: Color(0xFF64748B), fontSize: 13)),
-                    const Row(children: [
-                      Text('Sort by: Newest', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13)),
-                      Icon(Icons.expand_more, color: AppColors.primary, size: 18),
-                    ]),
+                    PopupMenuButton<String>(
+                      initialValue: _selectedSort,
+                      onSelected: (String value) {
+                        setState(() {
+                          _selectedSort = value;
+                        });
+                      },
+                      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                        const PopupMenuItem<String>(
+                          value: 'Newest',
+                          child: Text('Newest'),
+                        ),
+                        const PopupMenuItem<String>(
+                          value: 'Price: Low to High',
+                          child: Text('Price: Low to High'),
+                        ),
+                        const PopupMenuItem<String>(
+                          value: 'Price: High to Low',
+                          child: Text('Price: High to Low'),
+                        ),
+                      ],
+                      child: Row(children: [
+                        Text('Sort by: $_selectedSort', style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13)),
+                        const Icon(Icons.expand_more, color: AppColors.primary, size: 18),
+                      ]),
+                    ),
                   ]),
                 ),
               ),

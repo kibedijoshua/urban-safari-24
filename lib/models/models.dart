@@ -27,6 +27,7 @@ class Product {
   final String? description;
   final String? storeId;
   final String? category;
+  final DateTime? createdAt;
 
   const Product({
     required this.id,
@@ -41,6 +42,7 @@ class Product {
     this.description,
     this.storeId,
     this.category,
+    this.createdAt,
   });
 
   factory Product.fromMap(Map<String, dynamic> map, String id) {
@@ -57,6 +59,11 @@ class Product {
       description: map['description'] as String?,
       storeId: map['storeId'] as String?,
       category: map['category'] as String?,
+      createdAt: map['createdAt'] != null 
+          ? (map['createdAt'] is DateTime 
+              ? map['createdAt'] as DateTime 
+              : (map['createdAt'] as dynamic).toDate()) 
+          : null,
     );
   }
 }

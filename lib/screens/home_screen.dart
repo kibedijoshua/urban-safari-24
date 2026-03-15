@@ -18,12 +18,12 @@ class HomeScreen extends StatelessWidget {
     final products = market.allProducts.map((p) => Product.fromMap(p, p['id'] as String)).toList();
 
     final categories = [
-      {'label': 'clothing', 'img': 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1974&auto=format&fit=crop'},
-      {'label': 'shoes', 'img': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop'},
-      {'label': 'caps', 'img': 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=2070&auto=format&fit=crop'},
-      {'label': 'jerseys', 'img': 'https://images.unsplash.com/photo-1571212776723-9ae01daffdae?q=80&w=2070&auto=format&fit=crop'},
-      {'label': 'boots', 'img': 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=1974&auto=format&fit=crop'},
-      {'label': 'gadgets', 'img': 'https://images.unsplash.com/photo-1546868889-4e0c68a44280?q=80&w=1964&auto=format&fit=crop'},
+      {'label': 'clothing', 'img': 'assets/categories/clothing.png'},
+      {'label': 'shoes', 'img': 'assets/categories/shoes.png'},
+      {'label': 'caps', 'img': 'assets/categories/caps.png'},
+      {'label': 'jerseys', 'img': 'assets/categories/jerseys.png'},
+      {'label': 'boots', 'img': 'assets/categories/boots.png'},
+      {'label': 'gadgets', 'img': 'assets/categories/gadgets.png'},
     ];
 
     return Scaffold(
@@ -153,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                 // Categories
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 100,
+                    height: 120,
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       scrollDirection: Axis.horizontal,
@@ -164,14 +164,14 @@ class HomeScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () => context.pushNamed('shop'),
                             child: Container(
-                              width: 60, height: 60,
+                              width: 65, height: 65,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: AppColors.primary.withOpacity(0.2),
                                 border: Border.all(color: AppColors.primary.withOpacity(0.3), width: 2),
                               ),
                               child: ClipOval(
-                                child: Image.network(categories[i]['img']!, fit: BoxFit.cover,
+                                child: Image.asset(categories[i]['img']!, fit: BoxFit.cover,
                                   errorBuilder: (_, __, ___) => Container(color: AppColors.backgroundDark)),
                               ),
                             ),
