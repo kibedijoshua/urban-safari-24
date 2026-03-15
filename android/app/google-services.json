@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "130288048694",
+    "project_id": "aurafarm-cec55",
+    "storage_bucket": "aurafarm-cec55.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130288048694:android:b21714cfe1d4b43cc29697",
+        "android_client_info": {
+          "package_name": "com.aura.uganda.aura_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUk1C0KW8H13F4DdvA0dIYhY5g_g8zaEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
