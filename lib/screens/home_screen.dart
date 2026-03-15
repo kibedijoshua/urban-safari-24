@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                   pinned: true,
                   backgroundColor: AppColors.backgroundDark,
                   elevation: 0,
-                  title: const Text('Fashion UG', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  title: const Text("Urban Safari '24", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   centerTitle: true,
                   leading: Builder(
                     builder: (c) => IconButton(

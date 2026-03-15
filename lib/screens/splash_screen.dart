@@ -77,12 +77,19 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                           child: const Icon(Icons.star, color: AppColors.backgroundDark, size: 18),
                         ),
                         const SizedBox(width: 8),
-                        const Text('Aura',
+                        const Text('Urban Safari',
                           style: TextStyle(
                             color: AppColors.primary,
                             fontSize: 20,
                             fontWeight: FontWeight.w800,
-                            letterSpacing: 4,
+                            letterSpacing: 2,
+                          ),
+                        ),
+                        const Text("'24",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                       ],
@@ -141,8 +148,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     ),
                     const Text.rich(
                       TextSpan(children: [
-                        TextSpan(text: 'African ', style: TextStyle(color: AppColors.primary, fontSize: 48, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
-                        TextSpan(text: 'Fashion', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900)),
+                        TextSpan(text: 'Urban ', style: TextStyle(color: AppColors.primary, fontSize: 48, fontWeight: FontWeight.w900)),
+                        TextSpan(text: 'Safari ', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900)),
+                        TextSpan(text: "'24", style: TextStyle(color: AppColors.primary, fontSize: 48, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
                       ]),
                       textAlign: TextAlign.center,
                     ),

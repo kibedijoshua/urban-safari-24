@@ -79,10 +79,9 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
                 title: Row(children: const [
                   Icon(Icons.local_mall, color: AppColors.primary, size: 28),
                   SizedBox(width: 8),
-                  Text('Fashion Hub', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text("Urban Safari '24", style: TextStyle(fontWeight: FontWeight.bold)),
                 ]),
                 actions: [
-                  IconButton(icon: const Icon(Icons.notifications_outlined, color: Colors.white), onPressed: () {}),
                   IconButton(icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white), onPressed: () => context.goNamed('cart')),
                 ],
                 bottom: PreferredSize(

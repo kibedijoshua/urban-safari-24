@@ -1,7 +1,25 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../providers/auth_provider.dart';
+
+// Helper class to convert a Stream into a Listenable for GoRouter
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen((_) => notifyListeners());
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
 import '../screens/splash_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/product_listing_screen.dart';
@@ -23,11 +41,13 @@ import '../screens/manage_products_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
+  // This ensures the router reacts to auth state changes
+  refreshListenable: GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges()),
   redirect: (context, state) {
     final auth = context.read<AuthProvider>();
     final path = state.uri.path;
     
-    // List of routes that only the admin (menhyajoshua@gmail.com) can access
+    // List of routes that only the admin can access
     final adminRoutes = [
       '/admin',
       '/seller',
@@ -41,10 +61,10 @@ final GoRouter appRouter = GoRouter(
         return '/home';
       }
     }
-    if (path == '/') {
-      if (auth.isLoggedIn) {
-        return '/home';
-      }
+    
+    // Auto-landing: If on splash or login and already logged in, go home
+    if ((path == '/' || path == '/login' || path == '/signup') && auth.isLoggedIn) {
+      return '/home';
     }
     
     return null;
